@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Collecteur de Photos</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <title>🎉 Anniversaire Anthony - 40 ans 🎉</title>
     <style>
         * {
             margin: 0;
@@ -13,824 +12,704 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            color: #333;
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
             text-align: center;
-        }
-
-        .large-container {
-            max-width: 1000px;
-        }
-
-        h1 {
-            color: #333;
             margin-bottom: 30px;
-            font-size: 2.5em;
-            font-weight: 300;
-        }
-
-        h2 {
-            color: #555;
-            margin-bottom: 20px;
-            font-size: 1.8em;
-            font-weight: 400;
-        }
-
-        .qr-section {
-            margin-bottom: 40px;
+            background: white;
             padding: 30px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 15px;
-            border: 2px dashed #667eea;
-        }
-
-        #qrcode {
-            margin: 20px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-            display: inline-block;
-        }
-
-        .upload-section {
-            margin-bottom: 30px;
-        }
-
-        .name-input {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 2px solid #ddd;
-            border-radius: 25px;
-            font-size: 16px;
-            outline: none;
-            transition: border-color 0.3s ease;
-        }
-
-        .name-input:focus {
-            border-color: #667eea;
-        }
-
-        .file-input-wrapper {
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             position: relative;
-            display: inline-block;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-
-        .file-input {
-            position: absolute;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-        }
-
-        .file-input-button {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            border: none;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-
-        .file-input-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-        }
-
-        .upload-btn {
-            background: linear-gradient(45deg, #56ab2f, #a8e6cf);
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 25px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 15px;
-        }
-
-        .upload-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(86, 171, 47, 0.3);
-        }
-
-        .upload-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .message {
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
-            font-weight: 500;
-        }
-
-        .success {
-            background: rgba(86, 171, 47, 0.1);
-            color: #56ab2f;
-            border: 1px solid rgba(86, 171, 47, 0.3);
-        }
-
-        .error {
-            background: rgba(231, 76, 60, 0.1);
-            color: #e74c3c;
-            border: 1px solid rgba(231, 76, 60, 0.3);
-        }
-
-        .photos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .photo-item {
-            background: white;
-            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(30, 60, 114, 0.1) 10px,
+                rgba(30, 60, 114, 0.1) 20px
+            );
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .header h1 {
+            font-size: 3em;
+            color: #1e3c72;
+            margin-bottom: 10px;
             position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
-        .photo-item:hover {
-            transform: translateY(-5px);
+        .header p {
+            font-size: 1.2em;
+            color: #2a5298;
+            position: relative;
+            z-index: 2;
         }
 
-        .photo-item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .photo-info {
-            padding: 15px;
-            text-align: left;
-        }
-
-        .photo-author {
-            color: #667eea;
-            font-weight: 600;
-            font-size: 1.1em;
-            margin-bottom: 5px;
-        }
-
-        .photo-time {
-            color: #666;
-            font-size: 0.9em;
-        }
-
-        .tab-buttons {
+        .nav {
             display: flex;
+            justify-content: center;
+            gap: 20px;
             margin-bottom: 30px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50px;
-            padding: 5px;
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: 12px 20px;
-            border: none;
-            background: transparent;
-            border-radius: 45px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            font-size: 14px;
-        }
-
-        .tab-btn.active {
-            background: white;
-            color: #667eea;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .download-btn {
-            background: linear-gradient(45deg, #f093fb, #f5576c);
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-            margin-top: 10px;
-            margin-right: 5px;
-            transition: all 0.3s ease;
-        }
-
-        .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(240, 147, 251, 0.4);
-        }
-
-        .delete-btn {
-            background: linear-gradient(45deg, #e74c3c, #c0392b);
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-            margin-top: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .delete-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
-        }
-
-        .admin-controls {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            justify-content: space-between;
-        }
-
-        .bulk-actions {
-            margin-bottom: 20px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 15px;
-            display: flex;
-            gap: 15px;
-            align-items: center;
             flex-wrap: wrap;
         }
 
-        .bulk-delete-btn {
-            background: linear-gradient(45deg, #e74c3c, #c0392b);
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 25px;
+        .nav-btn {
+            background: white;
+            color: #1e3c72;
+            border: 3px solid #1e3c72;
+            padding: 15px 30px;
+            border-radius: 50px;
             cursor: pointer;
-            font-size: 16px;
+            font-weight: bold;
+            font-size: 1.1em;
             transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .bulk-delete-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(231, 76, 60, 0.4);
-        }
-
-        .select-all-btn {
-            background: linear-gradient(45deg, #3498db, #2980b9);
+        .nav-btn:hover, .nav-btn.active {
+            background: #1e3c72;
             color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.3s ease;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-        .select-all-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(52, 152, 219, 0.4);
+        .section {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
         }
 
-        .photo-checkbox {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 20px;
-            height: 20px;
-            z-index: 10;
+        .section.active {
+            display: block;
+            animation: slideIn 0.5s ease;
         }
 
-        .preview-container {
-            margin-top: 20px;
-            text-align: center;
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .preview-image {
-            max-width: 100%;
-            max-height: 300px;
+        .upload-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
             border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #2a5298;
+            box-shadow: 0 0 10px rgba(42, 82, 152, 0.3);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .photo-card {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .photo-card img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .photo-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .photo-author {
+            font-weight: bold;
+            color: #1e3c72;
+        }
+
+        .photo-rating {
+            display: flex;
+            gap: 2px;
+        }
+
+        .star {
+            color: #ddd;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: color 0.2s ease;
+        }
+
+        .star.active, .star:hover {
+            color: #ffd700;
+        }
+
+        .comments {
             margin-top: 15px;
         }
 
-        .gallery-stats {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 15px;
+        .comment {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #2a5298;
         }
 
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2em;
+        .comment-author {
             font-weight: bold;
-            color: #667eea;
+            color: #1e3c72;
+            margin-bottom: 5px;
         }
 
-        .stat-label {
-            color: #666;
-            font-size: 0.9em;
+        .comment-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
         }
 
-        .contributors-list {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 15px;
-            text-align: left;
+        .comment-form input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
 
-        .contributor-item {
-            display: inline-block;
-            background: #667eea;
+        .comment-btn {
+            background: #2a5298;
             color: white;
-            padding: 5px 12px;
-            margin: 3px;
-            border-radius: 15px;
-            font-size: 0.9em;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
         }
 
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px;
-            }
-            
-            h1 {
-                font-size: 2em;
-            }
-            
-            .photos-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-                gap: 15px;
-            }
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 10px;
+        }
 
-            .tab-btn {
-                font-size: 12px;
-                padding: 10px 15px;
-            }
+        .chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #f8f9fa;
+        }
 
-            .gallery-stats {
-                flex-direction: column;
-                gap: 15px;
-            }
+        .chat-message {
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid #2a5298;
+        }
 
-            .bulk-actions {
-                flex-direction: column;
-                align-items: stretch;
-            }
+        .chat-form {
+            display: flex;
+            gap: 10px;
+        }
 
-            .admin-controls {
-                flex-direction: column;
-                gap: 5px;
+        .chat-form input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+        }
+
+        .admin-section {
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .password-form {
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #2a5298;
+            animation: confetti-fall 3s linear infinite;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
             }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .hidden {
+            display: none !important;
         }
     </style>
 </head>
 <body>
-    <div class="container" id="mainContainer">
-        <div class="tab-buttons">
-            <button class="tab-btn active" onclick="showTab('upload')">📤 Upload</button>
-            <button class="tab-btn" onclick="showTab('gallery')">🖼️ Galerie</button>
-            <button class="tab-btn" onclick="showTab('admin')">👨‍💼 Admin</button>
+    <div class="confetti" id="confetti"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>🎉 Joyeux Anniversaire Anthony ! 🎉</h1>
+            <p>Célébrons ensemble tes 40 ans avec style !</p>
+        </div>
+
+        <div class="nav">
+            <button class="nav-btn active" onclick="showSection('upload')">📸 Partager Photo</button>
+            <button class="nav-btn" onclick="showSection('gallery')">🖼️ Galerie</button>
+            <button class="nav-btn" onclick="showSection('chat')">💬 Discussion</button>
+            <button class="nav-btn" onclick="showSection('admin')">🔧 Admin</button>
         </div>
 
         <!-- Section Upload -->
-        <div id="uploadTab" class="tab-content active">
-            <h1>📸 Partagez vos photos</h1>
-            
-            <div class="upload-section">
-                <input type="text" id="userName" class="name-input" placeholder="👤 Votre nom ou pseudo" maxlength="30">
-                
-                <div class="file-input-wrapper">
-                    <input type="file" id="photoInput" class="file-input" accept="image/*" multiple>
-                    <div class="file-input-button">
-                        🖼️ Choisir des photos
-                    </div>
+        <div id="upload" class="section active">
+            <h2>📸 Partage ta photo souvenir</h2>
+            <div class="upload-form">
+                <div class="form-group">
+                    <label for="username">Ton prénom :</label>
+                    <input type="text" id="username" placeholder="Entre ton prénom">
                 </div>
-                
-                <div id="selectedFiles"></div>
-                <div id="previewContainer" class="preview-container"></div>
-                
-                <button id="uploadBtn" class="upload-btn" onclick="uploadPhotos()" disabled>
-                    📤 Envoyer les photos
-                </button>
+                <div class="form-group">
+                    <label for="photo">Choisis ta photo :</label>
+                    <input type="file" id="photo" accept="image/*">
+                </div>
+                <button class="btn" onclick="uploadPhoto()">🚀 Partager ma photo</button>
             </div>
-            
-            <div id="message"></div>
         </div>
 
-         <!-- Section Galerie Publique -->
-        <div id="galleryTab" class="tab-content">
-            <h1>🖼️ Galerie Photos</h1>
-            
-            <div class="gallery-stats">
-                <div class="stat-item">
-                    <div class="stat-number" id="totalPhotos">0</div>
-                    <div class="stat-label">Photos</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="totalContributors">0</div>
-                    <div class="stat-label">Contributeurs</div>
-                </div>
+        <!-- Section Galerie -->
+        <div id="gallery" class="section">
+            <h2>🖼️ Galerie des souvenirs</h2>
+            <div id="photoGrid" class="photo-grid">
+                <!-- Les photos apparaîtront ici -->
             </div>
+        </div>
 
-            <div class="contributors-list" id="contributorsList">
-                <strong>👥 Contributeurs : </strong>
+        <!-- Section Chat -->
+        <div id="chat" class="section">
+            <h2>💬 Fil de discussion</h2>
+            <div id="chatMessages" class="chat-messages">
+                <div class="chat-message">
+                    <div class="comment-author">🎂 Système</div>
+                    <div>Bienvenue dans la discussion ! Partagez vos messages d'anniversaire pour Anthony !</div>
+                </div>
             </div>
-            
-            <div id="publicPhotosGrid" class="photos-grid"></div>
+            <div class="chat-form">
+                <input type="text" id="chatUsername" placeholder="Ton prénom">
+                <input type="text" id="chatMessage" placeholder="Ton message...">
+                <button class="comment-btn" onclick="sendMessage()">Envoyer</button>
+            </div>
         </div>
 
         <!-- Section Admin -->
-        <div id="adminTab" class="tab-content">
-            <h1>🔧 Administration</h1>
-            
-            <div class="qr-section">
-                <h2>QR Code pour partage</h2>
-                <p>Montrez ce QR code aux personnes pour qu'elles puissent uploader leurs photos</p>
-                <canvas id="qrcode"></canvas>
-                <br>
-                <button class="download-btn" onclick="downloadQR()">⬇️ Télécharger QR Code</button>
+        <div id="admin" class="section">
+            <h2>🔧 Administration</h2>
+            <div id="adminLogin" class="admin-section">
+                <h3>Connexion Admin</h3>
+                <div class="password-form">
+                    <input type="password" id="adminPassword" placeholder="Mot de passe admin">
+                    <button class="btn" onclick="adminLogin()">Se connecter</button>
+                </div>
             </div>
-
-            <div class="bulk-actions">
-                <button class="select-all-btn" onclick="toggleSelectAll()">
-                    📋 Tout sélectionner
-                </button>
-                <button class="bulk-delete-btn" onclick="deleteSelectedPhotos()">
-                    🗑️ Supprimer sélection
-                </button>
-                <span id="selectedCount">0 photo(s) sélectionnée(s)</span>
+            <div id="adminPanel" class="hidden">
+                <h3>Panneau d'administration</h3>
+                <p>Vous pouvez supprimer des photos en cliquant sur le bouton rouge dans la galerie.</p>
+                <button class="btn" onclick="adminLogout()">Se déconnecter</button>
             </div>
-
-            <h2>Photos reçues (<span id="photoCount">0</span>)</h2>
-            <button class="download-btn" onclick="downloadAllPhotos()" style="margin-bottom: 20px;">
-                📥 Télécharger toutes les photos
-            </button>
-            <div id="photosGrid" class="photos-grid"></div>
         </div>
     </div>
 
     <script>
-        let photos = JSON.parse(localStorage.getItem('uploadedPhotos') || '[]');
-        let selectedFiles = [];
-        let selectedPhotos = new Set();
+        // Données en mémoire
+        let photos = [];
+        let messages = [];
+        let isAdmin = false;
 
         // Initialisation
         document.addEventListener('DOMContentLoaded', function() {
-            generateQRCode();
-            displayPhotos();
-            displayPublicGallery();
-            updatePhotoCount();
-            updateGalleryStats();
-            
-            document.getElementById('photoInput').addEventListener('change', handleFileSelect);
+            createConfetti();
+            loadData();
         });
 
-        function showTab(tabName) {
-            // Masquer tous les contenus
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
+        // Gestion des sections
+        function showSection(sectionName) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
             });
-            
-            // Masquer tous les boutons actifs
-            document.querySelectorAll('.tab-btn').forEach(btn => {
+            document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            
-            // Afficher le contenu sélectionné
-            document.getElementById(tabName + 'Tab').classList.add('active');
+            document.getElementById(sectionName).classList.add('active');
             event.target.classList.add('active');
             
-            // Ajuster la taille du conteneur
-            if (tabName === 'admin' || tabName === 'gallery') {
-                document.getElementById('mainContainer').classList.add('large-container');
-            } else {
-                document.getElementById('mainContainer').classList.remove('large-container');
-            }
-            
-            if (tabName === 'admin') {
+            if (sectionName === 'gallery') {
                 displayPhotos();
-                updatePhotoCount();
-            } else if (tabName === 'gallery') {
-                displayPublicGallery();
-                updateGalleryStats();
+            } else if (sectionName === 'chat') {
+                displayMessages();
             }
         }
 
-        function generateQRCode() {
-            const qr = new QRious({
-                element: document.getElementById('qrcode'),
-                value: window.location.href,
-                size: 200,
-                foreground: '#667eea',
-                background: '#ffffff'
-            });
-        }
-
-        function downloadQR() {
-            const canvas = document.getElementById('qrcode');
-            const link = document.createElement('a');
-            link.download = 'qrcode-photos.png';
-            link.href = canvas.toDataURL();
-            link.click();
-        }
-
-        function handleFileSelect(event) {
-            selectedFiles = Array.from(event.target.files);
+        // Upload de photo
+        function uploadPhoto() {
+            const username = document.getElementById('username').value.trim();
+            const photoFile = document.getElementById('photo').files[0];
             
-            const selectedFilesDiv = document.getElementById('selectedFiles');
-            const previewContainer = document.getElementById('previewContainer');
-            const uploadBtn = document.getElementById('uploadBtn');
-            
-            if (selectedFiles.length > 0) {
-                selectedFilesDiv.innerHTML = `
-                    <p style="color: #667eea; margin: 15px 0;">
-                        ✅ ${selectedFiles.length} photo(s) sélectionnée(s)
-                    </p>
-                `;
-                
-                // Aperçu de la première image
-                if (selectedFiles[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        previewContainer.innerHTML = `
-                            <img src="${e.target.result}" class="preview-image" alt="Aperçu">
-                            ${selectedFiles.length > 1 ? `<p style="margin-top: 10px; color: #666;">+ ${selectedFiles.length - 1} autre(s) photo(s)</p>` : ''}
-                        `;
-                    };
-                    reader.readAsDataURL(selectedFiles[0]);
-                }
-                
-                uploadBtn.disabled = false;
-            } else {
-                selectedFilesDiv.innerHTML = '';
-                previewContainer.innerHTML = '';
-                uploadBtn.disabled = true;
-            }
-        }
-
-        function uploadPhotos() {
-            const userName = document.getElementById('userName').value.trim();
-            
-            if (!userName) {
-                document.getElementById('message').innerHTML = `
-                    <div class="message error">
-                        ❌ Veuillez entrer votre nom ou pseudo
-                    </div>
-                `;
+            if (!username) {
+                alert('Veuillez entrer votre prénom !');
                 return;
             }
             
-            if (selectedFiles.length === 0) return;
+            if (!photoFile) {
+                alert('Veuillez choisir une photo !');
+                return;
+            }
             
-            const uploadBtn = document.getElementById('uploadBtn');
-            const messageDiv = document.getElementById('message');
-            
-            uploadBtn.disabled = true;
-            uploadBtn.textContent = '📤 Upload en cours...';
-            
-            let processed = 0;
-            
-            selectedFiles.forEach((file, index) => {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const photo = {
-                        id: Date.now() + index,
-                        data: e.target.result,
-                        name: file.name,
-                        author: userName,
-                        timestamp: new Date().toLocaleString('fr-FR'),
-                        size: file.size
-                    };
-                    
-                    photos.unshift(photo);
-                    processed++;
-                    
-                    if (processed === selectedFiles.length) {
-                        localStorage.setItem('uploadedPhotos', JSON.stringify(photos));
-                        
-                        messageDiv.innerHTML = `
-                            <div class="message success">
-                                ✅ ${selectedFiles.length} photo(s) uploadée(s) avec succès !
-                            </div>
-                        `;
-                        
-                        // Reset
-                        selectedFiles = [];
-                        document.getElementById('photoInput').value = '';
-                        document.getElementById('userName').value = '';
-                        document.getElementById('selectedFiles').innerHTML = '';
-                        document.getElementById('previewContainer').innerHTML = '';
-                        uploadBtn.disabled = true;
-                        uploadBtn.textContent = '📤 Envoyer les photos';
-                        
-                        updatePhotoCount();
-                        updateGalleryStats();
-                    }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const photo = {
+                    id: Date.now(),
+                    author: username,
+                    image: e.target.result,
+                    comments: [],
+                    ratings: [],
+                    averageRating: 0
                 };
-                reader.readAsDataURL(file);
-            });
+                
+                photos.push(photo);
+                saveData();
+                
+                // Reset form
+                document.getElementById('username').value = '';
+                document.getElementById('photo').value = '';
+                
+                alert('Photo partagée avec succès ! 🎉');
+                triggerConfetti();
+            };
+            reader.readAsDataURL(photoFile);
         }
 
+        // Affichage des photos
         function displayPhotos() {
-            const grid = document.getElementById('photosGrid');
+            const grid = document.getElementById('photoGrid');
+            grid.innerHTML = '';
             
-            if (photos.length === 0) {
-                grid.innerHTML = '<p style="color: #666; text-align: center; grid-column: 1/-1;">Aucune photo reçue pour le moment</p>';
-                return;
-            }
-            
-            grid.innerHTML = photos.map(photo => `
-                <div class="photo-item">
-                    <input type="checkbox" class="photo-checkbox" onchange="togglePhotoSelection('${photo.id}')" ${selectedPhotos.has(photo.id.toString()) ? 'checked' : ''}>
-                    <img src="${photo.data}" alt="${photo.name}" onclick="viewFullImage('${photo.data}', '${photo.name}')">
+            photos.forEach(photo => {
+                const photoCard = document.createElement('div');
+                photoCard.className = 'photo-card';
+                
+                photoCard.innerHTML = `
+                    <img src="${photo.image}" alt="Photo de ${photo.author}">
                     <div class="photo-info">
-                        <div class="photo-author">👤 ${photo.author || 'Anonyme'}</div>
-                        <div style="font-weight: 500; margin-bottom: 5px;">${photo.name}</div>
-                        <div class="photo-time">${photo.timestamp}</div>
-                        <div class="photo-time">${formatFileSize(photo.size)}</div>
-                        <div class="admin-controls">
-                            <button class="download-btn" onclick="downloadPhoto('${photo.data}', '${photo.name}')">
-                                ⬇️ Télécharger
-                            </button>
-                            <button class="delete-btn" onclick="deletePhoto('${photo.id}')">
-                                🗑️ Supprimer
-                            </button>
+                        <span class="photo-author">📷 ${photo.author}</span>
+                        <div class="photo-rating">
+                            ${createStarRating(photo.id, photo.averageRating)}
+                        </div>
+                        ${isAdmin ? `<button class="delete-btn" onclick="deletePhoto(${photo.id})">🗑️</button>` : ''}
+                    </div>
+                    <div class="comments">
+                        <h4>💬 Commentaires :</h4>
+                        <div id="comments-${photo.id}">
+                            ${photo.comments.map(comment => `
+                                <div class="comment">
+                                    <div class="comment-author">${comment.author}</div>
+                                    <div>${comment.text}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="comment-form">
+                            <input type="text" id="comment-username-${photo.id}" placeholder="Ton prénom">
+                            <input type="text" id="comment-text-${photo.id}" placeholder="Ton commentaire...">
+                            <button class="comment-btn" onclick="addComment(${photo.id})">💬</button>
                         </div>
                     </div>
-                </div>
-            `).join('');
-        }
-
-        function displayPublicGallery() {
-            const grid = document.getElementById('publicPhotosGrid');
-            
-            if (photos.length === 0) {
-                grid.innerHTML = '<p style="color: #666; text-align: center; grid-column: 1/-1;">Aucune photo partagée pour le moment</p>';
-                return;
-            }
-            
-            grid.innerHTML = photos.map(photo => `
-                <div class="photo-item">
-                    <img src="${photo.data}" alt="${photo.name}" onclick="viewFullImage('${photo.data}', '${photo.name}')">
-                    <div class="photo-info">
-                        <div class="photo-author">👤 ${photo.author || 'Anonyme'}</div>
-                        <div style="font-weight: 500; margin-bottom: 5px;">${photo.name}</div>
-                        <div class="photo-time">${photo.timestamp}</div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function updatePhotoCount() {
-            document.getElementById('photoCount').textContent = photos.length;
-        }
-
-        function updateGalleryStats() {
-            const totalPhotos = photos.length;
-            const contributors = [...new Set(photos.map(p => p.author || 'Anonyme'))];
-            
-            document.getElementById('totalPhotos').textContent = totalPhotos;
-            document.getElementById('totalContributors').textContent = contributors.length;
-            
-            const contributorsList = document.getElementById('contributorsList');
-            contributorsList.innerHTML = '<strong>👥 Contributeurs : </strong>' + 
-                contributors.map(name => `<span class="contributor-item">${name}</span>`).join('');
-        }
-
-        function togglePhotoSelection(photoId) {
-            if (selectedPhotos.has(photoId)) {
-                selectedPhotos.delete(photoId);
-            } else {
-                selectedPhotos.add(photoId);
-            }
-            updateSelectedCount();
-        }
-
-        function toggleSelectAll() {
-            const allSelected = selectedPhotos.size === photos.length;
-            
-            if (allSelected) {
-                selectedPhotos.clear();
-            } else {
-                photos.forEach(photo => selectedPhotos.add(photo.id.toString()));
-            }
-            
-            displayPhotos();
-            updateSelectedCount();
-        }
-
-        function updateSelectedCount() {
-            document.getElementById('selectedCount').textContent = `${selectedPhotos.size} photo(s) sélectionnée(s)`;
-        }
-
-        function deletePhoto(photoId) {
-            if (confirm('Êtes-vous sûr de vouloir supprimer cette photo ?')) {
-                photos = photos.filter(photo => photo.id != photoId);
-                selectedPhotos.delete(photoId.toString());
-                localStorage.setItem('uploadedPhotos', JSON.stringify(photos));
-                displayPhotos();
-                displayPublicGallery();
-                updatePhotoCount();
-                updateGalleryStats();
-                updateSelectedCount();
-            }
-        }
-
-        function deleteSelectedPhotos() {
-            if (selectedPhotos.size === 0) {
-                alert('Aucune photo sélectionnée');
-                return;
-            }
-            
-            if (confirm(`Êtes-vous sûr de vouloir supprimer ${selectedPhotos.size} photo(s) ?`)) {
-                photos = photos.filter(photo => !selectedPhotos.has(photo.id.toString()));
-                selectedPhotos.clear();
-                localStorage.setItem('uploadedPhotos', JSON.stringify(photos));
-                displayPhotos();
-                displayPublicGallery();
-                updatePhotoCount();
-                updateGalleryStats();
-                updateSelectedCount();
-            }
-        }
-
-        function formatFileSize(bytes) {
-            if (bytes === 0) return '0 B';
-            const k = 1024;
-            const sizes = ['B', 'KB', 'MB', 'GB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-        }
-
-        function viewFullImage(data, name) {
-            const newWindow = window.open('', '_blank');
-            newWindow.document.write(`
-                <html>
-                    <head><title>${name}</title></head>
-                    <body style="margin:0;background:#000;display:flex;align-items:center;justify-content:center;min-height:100vh;">
-                        <img src="${data}" style="max-width:100%;max-height:100vh;object-fit:contain;" alt="${name}">
-                    </body>
-                </html>
-            `);
-        }
-
-        function downloadPhoto(data, name) {
-            const link = document.createElement('a');
-            link.download = name;
-            link.href = data;
-            link.click();
-        }
-
-        function downloadAllPhotos() {
-            if (photos.length === 0) {
-                alert('Aucune photo à télécharger');
-                return;
-            }
-            
-            photos.forEach((photo, index) => {
-                setTimeout(() => {
-                    downloadPhoto(photo.data, photo.name);
-                }, index * 100);
+                `;
+                
+                grid.appendChild(photoCard);
             });
         }
+
+        // Création du système de notation
+        function createStarRating(photoId, currentRating) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                const active = i <= Math.round(currentRating) ? 'active' : '';
+                stars += `<span class="star ${active}" onclick="ratePhoto(${photoId}, ${i})">⭐</span>`;
+            }
+            return stars + ` <span>(${currentRating.toFixed(1)})</span>`;
+        }
+
+        // Noter une photo
+        function ratePhoto(photoId, rating) {
+            const photo = photos.find(p => p.id === photoId);
+            if (photo) {
+                photo.ratings.push(rating);
+                photo.averageRating = photo.ratings.reduce((a, b) => a + b, 0) / photo.ratings.length;
+                saveData();
+                displayPhotos();
+            }
+        }
+
+        // Ajouter un commentaire
+        function addComment(photoId) {
+            const username = document.getElementById(`comment-username-${photoId}`).value.trim();
+            const text = document.getElementById(`comment-text-${photoId}`).value.trim();
+            
+            if (!username || !text) {
+                alert('Veuillez remplir tous les champs !');
+                return;
+            }
+            
+            const photo = photos.find(p => p.id === photoId);
+            if (photo) {
+                photo.comments.push({
+                    author: username,
+                    text: text,
+                    timestamp: new Date()
+                });
+                saveData();
+                displayPhotos();
+            }
+        }
+
+        // Supprimer une photo (admin)
+        function deletePhoto(photoId) {
+            if (isAdmin && confirm('Êtes-vous sûr de vouloir supprimer cette photo ?')) {
+                photos = photos.filter(p => p.id !== photoId);
+                saveData();
+                displayPhotos();
+            }
+        }
+
+        // Envoyer un message dans le chat
+        function sendMessage() {
+            const username = document.getElementById('chatUsername').value.trim();
+            const messageText = document.getElementById('chatMessage').value.trim();
+            
+            if (!username || !messageText) {
+                alert('Veuillez remplir tous les champs !');
+                return;
+            }
+            
+            const message = {
+                id: Date.now(),
+                author: username,
+                text: messageText,
+                timestamp: new Date()
+            };
+            
+            messages.push(message);
+            saveData();
+            
+            document.getElementById('chatUsername').value = '';
+            document.getElementById('chatMessage').value = '';
+            
+            displayMessages();
+        }
+
+        // Afficher les messages
+        function displayMessages() {
+            const messagesContainer = document.getElementById('chatMessages');
+            messagesContainer.innerHTML = `
+                <div class="chat-message">
+                    <div class="comment-author">🎂 Système</div>
+                    <div>Bienvenue dans la discussion ! Partagez vos messages d'anniversaire pour Anthony !</div>
+                </div>
+            `;
+            
+            messages.forEach(message => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'chat-message';
+                messageDiv.innerHTML = `
+                    <div class="comment-author">💬 ${message.author}</div>
+                    <div>${message.text}</div>
+                `;
+                messagesContainer.appendChild(messageDiv);
+            });
+            
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Connexion admin
+        function adminLogin() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === 'lol123lol') {
+                isAdmin = true;
+                document.getElementById('adminLogin').classList.add('hidden');
+                document.getElementById('adminPanel').classList.remove('hidden');
+                displayPhotos(); // Refresh pour afficher les boutons supprimer
+            } else {
+                alert('Mot de passe incorrect !');
+            }
+        }
+
+        // Déconnexion admin
+        function adminLogout() {
+            isAdmin = false;
+            document.getElementById('adminLogin').classList.remove('hidden');
+            document.getElementById('adminPanel').classList.add('hidden');
+            document.getElementById('adminPassword').value = '';
+            displayPhotos(); // Refresh pour cacher les boutons supprimer
+        }
+
+        // Sauvegarde des données
+        function saveData() {
+            // Simulation de sauvegarde - en réalité, les données sont perdues au rechargement
+            // Pour GitHub Pages, vous devriez utiliser un service externe ou une base de données
+        }
+
+        // Chargement des données
+        function loadData() {
+            // Simulation de chargement - les données par défaut
+        }
+
+        // Animation confettis
+        function createConfetti() {
+            const confettiContainer = document.getElementById('confetti');
+            const colors = ['#1e3c72', '#2a5298', '#ffffff', '#ffd700'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confettiPiece = document.createElement('div');
+                confettiPiece.className = 'confetti-piece';
+                confettiPiece.style.left = Math.random() * 100 + '%';
+                confettiPiece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confettiPiece.style.animationDelay = Math.random() * 3 + 's';
+                confettiPiece.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                confettiContainer.appendChild(confettiPiece);
+            }
+        }
+
+        function triggerConfetti() {
+            const confetti = document.getElementById('confetti');
+            confetti.style.display = 'block';
+            setTimeout(() => {
+                confetti.style.display = 'none';
+            }, 3000);
+        }
+
+        // Gestion des touches Enter
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                if (e.target.id === 'chatMessage') {
+                    sendMessage();
+                } else if (e.target.id === 'adminPassword') {
+                    adminLogin();
+                }
+            }
+        });
     </script>
 </body>
 </html>

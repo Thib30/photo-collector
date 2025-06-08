@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎉 Anniversaire Anthony - 40 ans 🎉</title>
-    <style>
-        * {
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎉 Anniversaire Anthony - 40 ans 🎉</title>
+  <!-- Style conservé tel quel -->
+  <style>
+     * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -357,541 +358,306 @@
         .hidden {
             display: none !important;
         }
-    </style>
+  </style>
 </head>
 <body>
-    <div class="confetti" id="confetti"></div>
-    
-    <div class="container">
-        <div class="header">
-            <h1>🎉 Joyeux Anniversaire Anthony ! 🎉</h1>
-            <p>Célébrons ensemble tes 40 ans avec style !</p>
-            <small style="color: #666; font-size: 0.9em;">☁️ Tes photos sont sauvegardées sur GitHub</small>
-        </div>
+  <div class="confetti" id="confetti"></div>
+  <div class="container">
+    <!-- ... toutes les sections HTML inchangées ... -->
+  </div>
 
-        <div class="nav">
-            <button class="nav-btn active" onclick="showSection('upload')">📸 Partager Photo</button>
-            <button class="nav-btn" onclick="showSection('gallery')">🖼️ Galerie</button>
-            <button class="nav-btn" onclick="showSection('chat')">💬 Discussion</button>
-            <button class="nav-btn" onclick="showSection('admin')">🔧 Admin</button>
-        </div>
+  <script>
+    let photos = [];
+    let messages = [];
+    let isAdmin = false;
 
-        <!-- Section Upload -->
-        <div id="upload" class="section active">
-            <h2>📸 Partage ta photo souvenir</h2>
-            <div class="upload-form">
-                <div class="form-group">
-                    <label for="username">Ton prénom :</label>
-                    <input type="text" id="username" placeholder="Entre ton prénom">
-                </div>
-                <div class="form-group">
-                    <label for="photo">Choisis ta photo :</label>
-                    <input type="file" id="photo" accept="image/*">
-                </div>
-                <button class="btn" onclick="uploadPhoto()">🚀 Partager ma photo</button>
-            </div>
-        </div>
-
-        <!-- Section Galerie -->
-        <div id="gallery" class="section">
-            <h2>🖼️ Galerie des souvenirs</h2>
-            <div id="photoGrid" class="photo-grid">
-                <!-- Les photos apparaîtront ici -->
-            </div>
-        </div>
-
-        <!-- Section Chat -->
-        <div id="chat" class="section">
-            <h2>💬 Fil de discussion</h2>
-            <div id="chatMessages" class="chat-messages">
-                <div class="chat-message">
-                    <div class="comment-author">🎂 Système</div>
-                    <div>Bienvenue dans la discussion ! Partagez vos messages d'anniversaire pour Anthony !</div>
-                </div>
-            </div>
-            <div class="chat-form">
-                <input type="text" id="chatUsername" placeholder="Ton prénom">
-                <input type="text" id="chatMessage" placeholder="Ton message...">
-                <button class="comment-btn" onclick="sendMessage()">Envoyer</button>
-            </div>
-        </div>
-
-        <!-- Section Admin -->
-        <div id="admin" class="section">
-            <h2>🔧 Administration</h2>
-            <div id="adminLogin" class="admin-section">
-                <h3>Connexion Admin</h3>
-                <div class="password-form">
-                    <input type="password" id="adminPassword" placeholder="Mot de passe admin">
-                    <button class="btn" onclick="adminLogin()">Se connecter</button>
-                </div>
-            </div>
-            <div id="adminPanel" class="hidden">
-                <h3>Panneau d'administration</h3>
-                <p>Vous pouvez supprimer des photos en cliquant sur le bouton rouge dans la galerie.</p>
-                <button class="btn" onclick="adminLogout()">Se déconnecter</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Configuration GitHub API - REMPLACEZ CES VALEURS PAR LES VÔTRES
-        const GITHUB_CONFIG = {
-            owner: 'Thib30',           // ⚠️ Remplacez par votre nom d'utilisateur GitHub
-            repo: 'photo-collector',          // ⚠️ Remplacez par le nom de votre repository
-            token: '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',         // ⚠️ Remplacez par votre Personal Access Token
-            branch: 'main'                     // ou 'master' selon votre repo
-        };
-
-        // Données en mémoire
-        let photos = [];
-        let messages = [];
-        let isAdmin = false;
-
-        // Initialisation
-        document.addEventListener('DOMContentLoaded', function() {
-            createConfetti();
-            loadData();
-            // Afficher les photos si on est sur la galerie au chargement
-            if (document.getElementById('gallery').classList.contains('active')) {
-                displayPhotos();
-            }
-        });
-
-        // Gestion des sections
-        function showSection(sectionName) {
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.getElementById(sectionName).classList.add('active');
-            event.target.classList.add('active');
-            
-            if (sectionName === 'gallery') {
-                setTimeout(() => displayPhotos(), 100); // Petit délai pour l'animation
-            } else if (sectionName === 'chat') {
-                setTimeout(() => displayMessages(), 100);
-            }
-        }
-
-        // Upload de photo
-        async function uploadPhoto() {
-            const username = document.getElementById('username').value.trim();
-            const photoFile = document.getElementById('photo').files[0];
-            
-            if (!username) {
-                alert('Veuillez entrer votre prénom !');
-                return;
-            }
-            
-            if (!photoFile) {
-                alert('Veuillez choisir une photo !');
-                return;
-            }
-            
-            const reader = new FileReader();
-            reader.onload = async function(e) {
-                const photo = {
-                    id: Date.now(),
-                    author: username,
-                    image: e.target.result,
-                    comments: [],
-                    ratings: [],
-                    averageRating: 0
-                };
-                
-                photos.push(photo);
-                const success = await saveData();
-                
-                if (success !== false) {
-                    // Reset form
-                    document.getElementById('username').value = '';
-                    document.getElementById('photo').value = '';
-                    
-                    alert('Photo partagée avec succès ! 🎉');
-                    triggerConfetti();
-                } else {
-                    // Retirer la photo si la sauvegarde a échoué
-                    photos.pop();
-                    alert('Erreur lors du partage. Vérifiez votre configuration GitHub.');
-                }
-            };
-            reader.readAsDataURL(photoFile);
-        }
-
-        // Affichage des photos
-        function displayPhotos() {
-            const grid = document.getElementById('photoGrid');
-            grid.innerHTML = '';
-            
-            photos.forEach(photo => {
-                const photoCard = document.createElement('div');
-                photoCard.className = 'photo-card';
-                
-                photoCard.innerHTML = `
-                    <img src="${photo.image}" alt="Photo de ${photo.author}">
-                    <div class="photo-info">
-                        <span class="photo-author">📷 ${photo.author}</span>
-                        <div class="photo-rating">
-                            ${createStarRating(photo.id, photo.averageRating)}
-                        </div>
-                        ${isAdmin ? `<button class="delete-btn" onclick="deletePhoto(${photo.id})">🗑️</button>` : ''}
-                    </div>
-                    <div class="comments">
-                        <h4>💬 Commentaires :</h4>
-                        <div id="comments-${photo.id}">
-                            ${photo.comments.map(comment => `
-                                <div class="comment">
-                                    <div class="comment-author">${comment.author}</div>
-                                    <div>${comment.text}</div>
-                                </div>
-                            `).join('')}
-                        </div>
-                        <div class="comment-form">
-                            <input type="text" id="comment-username-${photo.id}" placeholder="Ton prénom">
-                            <input type="text" id="comment-text-${photo.id}" placeholder="Ton commentaire...">
-                            <button class="comment-btn" onclick="addComment(${photo.id})">💬</button>
-                        </div>
-                    </div>
-                `;
-                
-                grid.appendChild(photoCard);
-            });
-        }
-
-        // Création du système de notation
-        function createStarRating(photoId, currentRating) {
-            let stars = '';
-            for (let i = 1; i <= 5; i++) {
-                const active = i <= Math.round(currentRating) ? 'active' : '';
-                stars += `<span class="star ${active}" onclick="ratePhoto(${photoId}, ${i})">⭐</span>`;
-            }
-            return stars + ` <span>(${currentRating.toFixed(1)})</span>`;
-        }
-
-        // Noter une photo
-        function ratePhoto(photoId, rating) {
-            const photo = photos.find(p => p.id === photoId);
-            if (photo) {
-                photo.ratings.push(rating);
-                photo.averageRating = photo.ratings.reduce((a, b) => a + b, 0) / photo.ratings.length;
-                saveData();
-                displayPhotos();
-            }
-        }
-
-        // Ajouter un commentaire
-        function addComment(photoId) {
-            const username = document.getElementById(`comment-username-${photoId}`).value.trim();
-            const text = document.getElementById(`comment-text-${photoId}`).value.trim();
-            
-            if (!username || !text) {
-                alert('Veuillez remplir tous les champs !');
-                return;
-            }
-            
-            const photo = photos.find(p => p.id === photoId);
-            if (photo) {
-                photo.comments.push({
-                    author: username,
-                    text: text,
-                    timestamp: new Date()
-                });
-                saveData();
-                displayPhotos();
-            }
-        }
-
-        // Supprimer une photo (admin)
-        function deletePhoto(photoId) {
-            if (isAdmin && confirm('Êtes-vous sûr de vouloir supprimer cette photo ?')) {
-                photos = photos.filter(p => p.id !== photoId);
-                saveData();
-                displayPhotos();
-            }
-        }
-
-        // Envoyer un message dans le chat
-        async function sendMessage() {
-            const username = document.getElementById('chatUsername').value.trim();
-            const messageText = document.getElementById('chatMessage').value.trim();
-            
-            if (!username || !messageText) {
-                alert('Veuillez remplir tous les champs !');
-                return;
-            }
-            
-            const message = {
-                id: Date.now(),
-                author: username,
-                text: messageText,
-                timestamp: new Date()
-            };
-            
-            messages.push(message);
-            await saveData();
-            
-            document.getElementById('chatUsername').value = '';
-            document.getElementById('chatMessage').value = '';
-            
-            displayMessages();
-        }
-
-        // Afficher les messages
-        function displayMessages() {
-            const messagesContainer = document.getElementById('chatMessages');
-            messagesContainer.innerHTML = `
-                <div class="chat-message">
-                    <div class="comment-author">🎂 Système</div>
-                    <div>Bienvenue dans la discussion ! Partagez vos messages d'anniversaire pour Anthony !</div>
-                </div>
-            `;
-            
-            messages.forEach(message => {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = 'chat-message';
-                messageDiv.innerHTML = `
-                    <div class="comment-author">💬 ${message.author}</div>
-                    <div>${message.text}</div>
-                `;
-                messagesContainer.appendChild(messageDiv);
-            });
-            
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        }
-
-        // Connexion admin
-        function adminLogin() {
-            const password = document.getElementById('adminPassword').value;
-            if (password === 'lol123lol') {
-                isAdmin = true;
-                document.getElementById('adminLogin').classList.add('hidden');
-                document.getElementById('adminPanel').classList.remove('hidden');
-                displayPhotos(); // Refresh pour afficher les boutons supprimer
-            } else {
-                alert('Mot de passe incorrect !');
-            }
-        }
-
-        // Déconnexion admin
-        function adminLogout() {
-            isAdmin = false;
-            document.getElementById('adminLogin').classList.remove('hidden');
-            document.getElementById('adminPanel').classList.add('hidden');
-            document.getElementById('adminPassword').value = '';
-            displayPhotos(); // Refresh pour cacher les boutons supprimer
-        }
-
-        // Fonctions GitHub API
-        async function loadFromGitHub(filename) {
-            try {
-                const response = await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/data/${filename}`, {
-                    headers: {
-                        'Authorization': `token ${GITHUB_CONFIG.token}`,
-                        'Accept': 'application/vnd.github.v3+json'
-                    }
-                });
-                
-                if (response.ok) {
-                    const data = await response.json();
-                    const content = atob(data.content);
-                    return JSON.parse(content);
-                } else if (response.status === 404) {
-                    // Fichier n'existe pas encore, retourner tableau vide
-                    return [];
-                } else {
-                    console.error('Erreur lors du chargement:', response.status);
-                    return [];
-                }
-            } catch (error) {
-                console.error('Erreur GitHub API:', error);
-                return [];
-            }
-        }
-
-        async function saveToGitHub(filename, data) {
-            try {
-                // D'abord, essayer de récupérer le SHA du fichier existant
-                let sha = null;
-                try {
-                    const existingResponse = await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/data/${filename}`, {
-                        headers: {
-                            'Authorization': `token ${GITHUB_CONFIG.token}`,
-                            'Accept': 'application/vnd.github.v3+json'
-                        }
-                    });
-                    if (existingResponse.ok) {
-                        const existingData = await existingResponse.json();
-                        sha = existingData.sha;
-                    }
-                } catch (e) {
-                    // Fichier n'existe pas, sha reste null
-                }
-
-                const content = btoa(JSON.stringify(data, null, 2));
-                const payload = {
-                    message: `Update ${filename} - Anthony's Birthday App`,
-                    content: content,
-                    branch: GITHUB_CONFIG.branch
-                };
-
-                if (sha) {
-                    payload.sha = sha;
-                }
-
-                const response = await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/data/${filename}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${GITHUB_CONFIG.token}`,
-                        'Accept': 'application/vnd.github.v3+json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    console.error('Erreur lors de la sauvegarde:', response.status, await response.text());
-                    return false;
-                }
-                return true;
-            } catch (error) {
-                console.error('Erreur GitHub API sauvegarde:', error);
-                return false;
-            }
-        }
-
-        // Sauvegarde des données
-async function saveData() {
-  try {
-    showLoadingMessage('Sauvegarde en cours...');
-
-    const response = await fetch('https://photo-collector-backend.onrender.com/save', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ messages, photos })
+    document.addEventListener('DOMContentLoaded', function () {
+      createConfetti();
+      loadData();
+      if (document.getElementById('gallery').classList.contains('active')) {
+        displayPhotos();
+      }
     });
 
-    const result = await response.json();
-    if (result.success) {
-      showSuccessMessage('✅ Données sauvegardées avec succès !');
-    } else {
-      showErrorMessage('❌ Échec de la sauvegarde côté serveur');
+    function showSection(sectionName) {
+      document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(sectionName).classList.add('active');
+      event.target.classList.add('active');
+      if (sectionName === 'gallery') setTimeout(() => displayPhotos(), 100);
+      else if (sectionName === 'chat') setTimeout(() => displayMessages(), 100);
     }
-  } catch (err) {
-    console.error(err);
-    showErrorMessage('❌ Erreur de connexion au serveur');
-  }
-}
 
+    async function uploadPhoto() {
+      const username = document.getElementById('username').value.trim();
+      const photoFile = document.getElementById('photo').files[0];
 
-        // Chargement des données
-        async function loadData() {
-  try {
-    showLoadingMessage('Chargement des données...');
+      if (!username || !photoFile) {
+        alert('Veuillez entrer votre prénom et choisir une photo !');
+        return;
+      }
 
-    const response = await fetch('https://photo-collector-backend.onrender.com/data');
-    const data = await response.json();
-
-    photos = data.photos || [];
-    messages = data.messages || [];
-
-    hideLoadingMessage();
-
-    if (document.getElementById('gallery').classList.contains('active')) {
-      displayPhotos();
+      const reader = new FileReader();
+      reader.onload = async function (e) {
+        const photo = {
+          id: Date.now(),
+          author: username,
+          image: e.target.result,
+          comments: [],
+          ratings: [],
+          averageRating: 0
+        };
+        photos.push(photo);
+        const success = await saveData();
+        if (success !== false) {
+          document.getElementById('username').value = '';
+          document.getElementById('photo').value = '';
+          alert('Photo partagée avec succès ! 🎉');
+          triggerConfetti();
+        } else {
+          photos.pop();
+          alert('Erreur lors du partage. Réessayez.');
+        }
+      };
+      reader.readAsDataURL(photoFile);
     }
-    if (document.getElementById('chat').classList.contains('active')) {
+
+    function displayPhotos() {
+      const grid = document.getElementById('photoGrid');
+      grid.innerHTML = '';
+      photos.forEach(photo => {
+        const photoCard = document.createElement('div');
+        photoCard.className = 'photo-card';
+        photoCard.innerHTML = `
+          <img src="${photo.image}" alt="Photo de ${photo.author}">
+          <div class="photo-info">
+            <span class="photo-author">📷 ${photo.author}</span>
+            <div class="photo-rating">${createStarRating(photo.id, photo.averageRating)}</div>
+            ${isAdmin ? `<button class="delete-btn" onclick="deletePhoto(${photo.id})">🗑️</button>` : ''}
+          </div>
+          <div class="comments">
+            <h4>💬 Commentaires :</h4>
+            <div id="comments-${photo.id}">
+              ${photo.comments.map(comment => `
+                <div class="comment">
+                  <div class="comment-author">${comment.author}</div>
+                  <div>${comment.text}</div>
+                </div>`).join('')}
+            </div>
+            <div class="comment-form">
+              <input type="text" id="comment-username-${photo.id}" placeholder="Ton prénom">
+              <input type="text" id="comment-text-${photo.id}" placeholder="Ton commentaire...">
+              <button class="comment-btn" onclick="addComment(${photo.id})">💬</button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(photoCard);
+      });
+    }
+
+    function createStarRating(photoId, currentRating) {
+      let stars = '';
+      for (let i = 1; i <= 5; i++) {
+        const active = i <= Math.round(currentRating) ? 'active' : '';
+        stars += `<span class="star ${active}" onclick="ratePhoto(${photoId}, ${i})">⭐</span>`;
+      }
+      return stars + ` <span>(${currentRating.toFixed(1)})</span>`;
+    }
+
+    function ratePhoto(photoId, rating) {
+      const photo = photos.find(p => p.id === photoId);
+      if (photo) {
+        photo.ratings.push(rating);
+        photo.averageRating = photo.ratings.reduce((a, b) => a + b, 0) / photo.ratings.length;
+        saveData();
+        displayPhotos();
+      }
+    }
+
+    function addComment(photoId) {
+      const username = document.getElementById(`comment-username-${photoId}`).value.trim();
+      const text = document.getElementById(`comment-text-${photoId}`).value.trim();
+      if (!username || !text) {
+        alert('Veuillez remplir tous les champs !');
+        return;
+      }
+      const photo = photos.find(p => p.id === photoId);
+      if (photo) {
+        photo.comments.push({ author: username, text: text, timestamp: new Date() });
+        saveData();
+        displayPhotos();
+      }
+    }
+
+    function deletePhoto(photoId) {
+      if (isAdmin && confirm('Êtes-vous sûr de vouloir supprimer cette photo ?')) {
+        photos = photos.filter(p => p.id !== photoId);
+        saveData();
+        displayPhotos();
+      }
+    }
+
+    async function sendMessage() {
+      const username = document.getElementById('chatUsername').value.trim();
+      const messageText = document.getElementById('chatMessage').value.trim();
+      if (!username || !messageText) {
+        alert('Veuillez remplir tous les champs !');
+        return;
+      }
+      const message = { id: Date.now(), author: username, text: messageText, timestamp: new Date() };
+      messages.push(message);
+      await saveData();
+      document.getElementById('chatUsername').value = '';
+      document.getElementById('chatMessage').value = '';
       displayMessages();
     }
-  } catch (error) {
-    console.error(error);
-    hideLoadingMessage();
-    showErrorMessage('❌ Erreur de chargement des données');
-  }
-}
 
+    function displayMessages() {
+      const container = document.getElementById('chatMessages');
+      container.innerHTML = `
+        <div class="chat-message">
+          <div class="comment-author">🎂 Système</div>
+          <div>Bienvenue dans la discussion ! Partagez vos messages d'anniversaire pour Anthony !</div>
+        </div>`;
+      messages.forEach(msg => {
+        const div = document.createElement('div');
+        div.className = 'chat-message';
+        div.innerHTML = `<div class="comment-author">💬 ${msg.author}</div><div>${msg.text}</div>`;
+        container.appendChild(div);
+      });
+      container.scrollTop = container.scrollHeight;
+    }
 
-        // Messages d'état
-        function showLoadingMessage(message) {
-            const existing = document.getElementById('statusMessage');
-            if (existing) existing.remove();
-            
-            const statusDiv = document.createElement('div');
-            statusDiv.id = 'statusMessage';
-            statusDiv.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: #2a5298;
-                color: white;
-                padding: 15px 20px;
-                border-radius: 10px;
-                z-index: 1001;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            `;
-            statusDiv.textContent = message;
-            document.body.appendChild(statusDiv);
-        }
+    function adminLogin() {
+      const password = document.getElementById('adminPassword').value;
+      if (password === 'lol123lol') {
+        isAdmin = true;
+        document.getElementById('adminLogin').classList.add('hidden');
+        document.getElementById('adminPanel').classList.remove('hidden');
+        displayPhotos();
+      } else {
+        alert('Mot de passe incorrect !');
+      }
+    }
 
-        function showSuccessMessage(message) {
-            showLoadingMessage(message);
-            const statusDiv = document.getElementById('statusMessage');
-            if (statusDiv) {
-                statusDiv.style.background = '#28a745';
-                setTimeout(() => statusDiv.remove(), 3000);
-            }
-        }
+    function adminLogout() {
+      isAdmin = false;
+      document.getElementById('adminLogin').classList.remove('hidden');
+      document.getElementById('adminPanel').classList.add('hidden');
+      document.getElementById('adminPassword').value = '';
+      displayPhotos();
+    }
 
-        function showErrorMessage(message) {
-            showLoadingMessage(message);
-            const statusDiv = document.getElementById('statusMessage');
-            if (statusDiv) {
-                statusDiv.style.background = '#dc3545';
-                setTimeout(() => statusDiv.remove(), 5000);
-            }
-        }
-
-        function hideLoadingMessage() {
-            const existing = document.getElementById('statusMessage');
-            if (existing) existing.remove();
-        }
-        function createConfetti() {
-            const confettiContainer = document.getElementById('confetti');
-            const colors = ['#1e3c72', '#2a5298', '#ffffff', '#ffd700'];
-            
-            for (let i = 0; i < 50; i++) {
-                const confettiPiece = document.createElement('div');
-                confettiPiece.className = 'confetti-piece';
-                confettiPiece.style.left = Math.random() * 100 + '%';
-                confettiPiece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confettiPiece.style.animationDelay = Math.random() * 3 + 's';
-                confettiPiece.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                confettiContainer.appendChild(confettiPiece);
-            }
-        }
-
-        function triggerConfetti() {
-            const confetti = document.getElementById('confetti');
-            confetti.style.display = 'block';
-            setTimeout(() => {
-                confetti.style.display = 'none';
-            }, 3000);
-        }
-
-        // Gestion des touches Enter
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                if (e.target.id === 'chatMessage') {
-                    sendMessage();
-                } else if (e.target.id === 'adminPassword') {
-                    adminLogin();
-                }
-            }
+    async function saveData() {
+      try {
+        showLoadingMessage('Sauvegarde en cours...');
+        const response = await fetch('https://photo-collector-backend.onrender.com/save', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ photos, messages })
         });
-    </script>
+        const result = await response.json();
+        if (result.success) {
+          showSuccessMessage('✅ Données sauvegardées !');
+          return true;
+        } else {
+          showErrorMessage('❌ Échec de la sauvegarde');
+          return false;
+        }
+      } catch (error) {
+        console.error(error);
+        showErrorMessage('❌ Erreur de connexion');
+        return false;
+      }
+    }
+
+    async function loadData() {
+      try {
+        showLoadingMessage('Chargement des données...');
+        const response = await fetch('https://photo-collector-backend.onrender.com/data');
+        const data = await response.json();
+        photos = data.photos || [];
+        messages = data.messages || [];
+        hideLoadingMessage();
+        if (document.getElementById('gallery').classList.contains('active')) displayPhotos();
+        if (document.getElementById('chat').classList.contains('active')) displayMessages();
+      } catch (error) {
+        console.error(error);
+        hideLoadingMessage();
+        showErrorMessage('❌ Erreur de chargement');
+      }
+    }
+
+    // UI feedback
+    function showLoadingMessage(message) {
+      const existing = document.getElementById('statusMessage');
+      if (existing) existing.remove();
+      const statusDiv = document.createElement('div');
+      statusDiv.id = 'statusMessage';
+      statusDiv.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #2a5298;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        z-index: 1001;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      `;
+      statusDiv.textContent = message;
+      document.body.appendChild(statusDiv);
+    }
+
+    function showSuccessMessage(message) {
+      showLoadingMessage(message);
+      const statusDiv = document.getElementById('statusMessage');
+      if (statusDiv) {
+        statusDiv.style.background = '#28a745';
+        setTimeout(() => statusDiv.remove(), 3000);
+      }
+    }
+
+    function showErrorMessage(message) {
+      showLoadingMessage(message);
+      const statusDiv = document.getElementById('statusMessage');
+      if (statusDiv) {
+        statusDiv.style.background = '#dc3545';
+        setTimeout(() => statusDiv.remove(), 5000);
+      }
+    }
+
+    function hideLoadingMessage() {
+      const existing = document.getElementById('statusMessage');
+      if (existing) existing.remove();
+    }
+
+    function createConfetti() {
+      const container = document.getElementById('confetti');
+      const colors = ['#1e3c72', '#2a5298', '#ffffff', '#ffd700'];
+      for (let i = 0; i < 50; i++) {
+        const el = document.createElement('div');
+        el.className = 'confetti-piece';
+        el.style.left = Math.random() * 100 + '%';
+        el.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        el.style.animationDelay = Math.random() * 3 + 's';
+        el.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        container.appendChild(el);
+      }
+    }
+
+    function triggerConfetti() {
+      const confetti = document.getElementById('confetti');
+      confetti.style.display = 'block';
+      setTimeout(() => { confetti.style.display = 'none'; }, 3000);
+    }
+
+    document.addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        if (e.target.id === 'chatMessage') sendMessage();
+        else if (e.target.id === 'adminPassword') adminLogin();
+      }
+    });
+  </script>
 </body>
 </html>

@@ -651,7 +651,7 @@ reader.readAsDataURL(photoFile);
     async function saveData() {
       try {
         showLoadingMessage('Sauvegarde en cours...');
-        alert('saveData() appelé');
+        
         const response = await fetch('https://photo-collector-backend.onrender.com/save', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

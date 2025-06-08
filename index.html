@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>🎉 Anniversaire Anthony - 40 ans 🎉</title>
-  <!-- Style conservé tel quel -->
   <style>
      * {
             margin: 0;
@@ -362,9 +361,77 @@
 </head>
 <body>
   <div class="confetti" id="confetti"></div>
-  <div class="container">
-    <!-- ... toutes les sections HTML inchangées ... -->
-  </div>
+    <div class="container">
+        <div class="header">
+            <h1>🎉 Joyeux Anniversaire Anthony ! 🎉</h1>
+            <p>Célébrons ensemble tes 40 ans avec style !</p>
+            <small style="color: #666; font-size: 0.9em;">☁️ Tes photos sont sauvegardées sur GitHub</small>
+        </div>
+
+        <div class="nav">
+            <button class="nav-btn active" onclick="showSection('upload')">📸 Partager Photo</button>
+            <button class="nav-btn" onclick="showSection('gallery')">🖼️ Galerie</button>
+            <button class="nav-btn" onclick="showSection('chat')">💬 Discussion</button>
+            <button class="nav-btn" onclick="showSection('admin')">🔧 Admin</button>
+        </div>
+
+        <!-- Section Upload -->
+        <div id="upload" class="section active">
+            <h2>📸 Partage ta photo souvenir</h2>
+            <div class="upload-form">
+                <div class="form-group">
+                    <label for="username">Ton prénom :</label>
+                    <input type="text" id="username" placeholder="Entre ton prénom">
+                </div>
+                <div class="form-group">
+                    <label for="photo">Choisis ta photo :</label>
+                    <input type="file" id="photo" accept="image/*">
+                </div>
+                <button class="btn" onclick="uploadPhoto()">🚀 Partager ma photo</button>
+            </div>
+        </div>
+
+        <!-- Section Galerie -->
+        <div id="gallery" class="section">
+            <h2>🖼️ Galerie des souvenirs</h2>
+            <div id="photoGrid" class="photo-grid">
+                <!-- Les photos apparaîtront ici -->
+            </div>
+        </div>
+
+        <!-- Section Chat -->
+        <div id="chat" class="section">
+            <h2>💬 Fil de discussion</h2>
+            <div id="chatMessages" class="chat-messages">
+                <div class="chat-message">
+                    <div class="comment-author">🎂 Système</div>
+                    <div>Bienvenue dans la discussion ! Partagez vos messages d'anniversaire pour Anthony !</div>
+                </div>
+            </div>
+            <div class="chat-form">
+                <input type="text" id="chatUsername" placeholder="Ton prénom">
+                <input type="text" id="chatMessage" placeholder="Ton message...">
+                <button class="comment-btn" onclick="sendMessage()">Envoyer</button>
+            </div>
+        </div>
+
+        <!-- Section Admin -->
+        <div id="admin" class="section">
+            <h2>🔧 Administration</h2>
+            <div id="adminLogin" class="admin-section">
+                <h3>Connexion Admin</h3>
+                <div class="password-form">
+                    <input type="password" id="adminPassword" placeholder="Mot de passe admin">
+                    <button class="btn" onclick="adminLogin()">Se connecter</button>
+                </div>
+            </div>
+            <div id="adminPanel" class="hidden">
+                <h3>Panneau d'administration</h3>
+                <p>Vous pouvez supprimer des photos en cliquant sur le bouton rouge dans la galerie.</p>
+                <button class="btn" onclick="adminLogout()">Se déconnecter</button>
+            </div>
+        </div>
+    </div>
 
   <script>
     let photos = [];

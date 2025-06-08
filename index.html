@@ -464,30 +464,62 @@
         return;
       }
 
-      const reader = new FileReader();
-      reader.onload = async function (e) {
-        const photo = {
-          id: Date.now(),
-          author: username,
-          image: e.target.result,
-          comments: [],
-          ratings: [],
-          averageRating: 0
-        };
-        photos.push(photo);
-        const success = await saveData();
-        if (success !== false) {
-          document.getElementById('username').value = '';
-          document.getElementById('photo').value = '';
-          alert('Photo partagée avec succès ! 🎉');
-          triggerConfetti();
-        } else {
-          photos.pop();
-          alert('Erreur lors du partage. Réessayez.');
-        }
-      };
-      reader.readAsDataURL(photoFile);
+const reader = new FileReader();
+reader.onload = async function(e) {
+  const baseImage = new Image();
+  baseImage.onload = async function() {
+    const MAX_SIZE = 800;
+    const canvas = document.createElement('canvas');
+    let width = baseImage.width;
+    let height = baseImage.height;
+
+    if (width > height) {
+      if (width > MAX_SIZE) {
+        height *= MAX_SIZE / width;
+        width = MAX_SIZE;
+      }
+    } else {
+      if (height > MAX_SIZE) {
+        width *= MAX_SIZE / height;
+        height = MAX_SIZE;
+      }
     }
+
+    canvas.width = width;
+    canvas.height = height;
+
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(baseImage, 0, 0, width, height);
+
+    const resizedDataUrl = canvas.toDataURL('image/jpeg', 0.8); // JPEG compressé
+
+    const photo = {
+      id: Date.now(),
+      author: username,
+      image: resizedDataUrl,
+      comments: [],
+      ratings: [],
+      averageRating: 0
+    };
+
+    photos.push(photo);
+    const success = await saveData();
+
+    if (success !== false) {
+      document.getElementById('username').value = '';
+      document.getElementById('photo').value = '';
+      alert('Photo partagée avec succès ! 🎉');
+      triggerConfetti();
+    } else {
+      photos.pop();
+      alert('Erreur lors du partage. Vérifiez votre connexion ou réessayez.');
+    }
+  };
+
+  baseImage.src = e.target.result;
+};
+reader.readAsDataURL(photoFile);
+
 
     function displayPhotos() {
       const grid = document.getElementById('photoGrid');
